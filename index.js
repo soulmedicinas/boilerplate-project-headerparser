@@ -20,13 +20,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/api/whoami', function (req, res){
-  const ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const ipaddress = req.headers['x-forwarded-for']?.split(',')[0] || req.connection.remoteAddress;
+  const cleanIp = ipaddress.startsWith('::ffff:') ? ipaddress : `::ffff:${ipaddress}`;
 
-  const language = req.headers['accept-language'];
+  console.log('IP Address:', cleanIp);
+  console.log('Language:', req.headers['accept-language']);
+  console.log('Software:', req.headers['user-agent']);
 
-  const software = req.headers['user-agent'];
-
-  res.json({ ipaddress, language, software });
+  res.json({ ipaddress: cleanIp, language: req.headers['accept-language'], software: req.headers['user-agent'] });
 });
 
 // listen for requests :)
