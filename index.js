@@ -20,8 +20,17 @@ app.get('/', function (req, res) {
 });
 
 // your first API endpoint...
-app.get('/api/hello', function (req, res) {
-  res.json({ greeting: 'hello API' });
+app.get('/api/whoami', function (req, res) {
+
+
+  const ipaddress = req.socket.remoteAddress;
+  const language = req.headers['accept-language'] ? req.headers['accept-language'].split(',')[0]: "undefined"
+  const software = req.headers['user-agent'] || 'unknown';
+  res.json({ 
+    ipaddress:ipaddress,
+    language:language,
+    software: software
+   });
 });
 
 // listen for requests :)
