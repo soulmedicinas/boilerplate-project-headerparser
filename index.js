@@ -24,6 +24,25 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+// Rota para /api/whoami
+app.get('/api/whoami', (req, res) => {
+  // Obter o endereço IP do cliente usando req.socket
+  const ipaddress = req.ip || req.socket.remoteAddress;
+
+  // Obter o idioma preferido do cabeçalho Accept-Language
+  const language = req.headers['accept-language'];
+
+  // Obter o software (User-Agent) do cabeçalho User-Agent
+  const software = req.headers['user-agent'];
+
+  // Retornar as informações em um objeto JSON
+  res.json({
+    ipaddress: ipaddress,
+    language: language,
+    software: software,
+  });
+});
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
