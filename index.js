@@ -19,11 +19,6 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// your first API endpoint...
-app.get('/api/hello', function (req, res) {
-  res.json({ greeting: 'hello API' });
-});
-
 // Header parser endpoint
 app.get('/api/whoami', (req, res) => {
   res.json({
@@ -33,8 +28,8 @@ app.get('/api/whoami', (req, res) => {
   });
 });
 
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+// Start Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
